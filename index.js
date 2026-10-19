@@ -460,7 +460,7 @@ const freteSchema = z.object({
 // =======================================================================
 const app = express();
 app.use(helmet());
-app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(rateLimit({ windowMs: 60 * 1000, max: 200 }));
 const limiteLogin = rateLimit({ windowMs: 15 * 60 * 1000, max: 10, message: { erro: "MUITAS_TENTATIVAS", mensagem: "Muitas tentativas de login. Aguarde alguns minutos." } });
