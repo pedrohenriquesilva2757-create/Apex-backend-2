@@ -419,15 +419,21 @@ async function verificarLicenca(req, res, next) {
 function validar(schema) {
   return (req, res, next) => {
     const resultado = schema.safeParse(req.body);
+
     if (!resultado.success) {
-      const primeiro = resultado.error.issues[0];
-      return res.status(400).json({ erro: "DADOS_INVALIDOS", mensagem: `${primeiro.path.join(".")}: ${primeiro.message}` });
+      return res.status(400).json({
+        erro: "DADOS_INVALIDOS",
+        detalhes: resultado.error.issues.map((issue) => ({
+          campo: issue.path.join("."),
+          mensagem: issue.message
+        }))
+      });
     }
+    
     req.body = resultado.data;
     next();
   };
 }
-
 // =======================================================================
 // 5. SCHEMAS DE VALIDAÇÃO
 // =======================================================================
