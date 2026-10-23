@@ -465,6 +465,7 @@ const freteSchema = z.object({
 // 6. APP EXPRESS
 // =======================================================================
 const app = express();
+app.use(express.json());
 app.use(cors({
   origin: [
     "https://redesigned-space-doodle-5vwj4p5vvqxhv77-5173.app.github.dev",
